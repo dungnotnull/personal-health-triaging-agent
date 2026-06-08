@@ -1,4 +1,4 @@
-# ⚕️ PHTA — Personal Health Triaging Agent
+<h1 align="center">⚕️ PHTA — Personal Health Triaging Agent</h1>
 
 <p align="center">
   <strong>AI-powered clinical triage nurse.<br/>Conducts structured symptom interviews, integrates wearable biosensor data,<br/>and provides evidence-based triage recommendations.</strong>
