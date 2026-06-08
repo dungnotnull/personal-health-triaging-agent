@@ -1,0 +1,227 @@
+# ── Red Flag Emergency Test Fixtures ────────────────────────────────
+# EVERY case in this file MUST result in EMERGENCY (triage level 1).
+# Used by CI gate: scripts/ci_red_flag_gate.py
+# Zero-tolerance on failures — any regression blocks merge.
+#
+# Format:
+#   - id: unique case identifier
+#     description: clinical scenario
+#     input_text: what the user says (Vietnamese or English)
+#     expected_triage: 1
+#     expected_category: which red flag category should trigger
+#     notes: clinical rationale
+# ────────────────────────────────────────────────────────────────────
+
+cases:
+  # ── Cardiovascular ──────────────────────────────────────────────
+  - id: CV_001
+    description: "Classic MI — crushing chest pain with arm radiation and diaphoresis"
+    input_text: "Tôi bị đau ngực dữ dội, đau lan xuống cánh tay trái và vã mồ hôi"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Classic acute coronary syndrome presentation"
+
+  - id: CV_002
+    description: "Chest pressure with jaw pain"
+    input_text: "I have chest pressure and pain going to my jaw, been going on for 15 minutes"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Atypical MI presentation — jaw radiation is a cardiac red flag"
+
+  - id: CV_003
+    description: "Crushing chest — English caller"
+    input_text: "Severe crushing chest pain, feels like an elephant sitting on my chest"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Classic MI description"
+
+  - id: CV_004
+    description: "Chest tightness with sweating — Vietnamese"
+    input_text: "Tức ngực nặng kèm vã mồ hôi lạnh, khó thở"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Combination of chest + respiratory red flags"
+
+  # ── Neurological / Stroke ──────────────────────────────────────
+  - id: NEURO_001
+    description: "Complete FAST stroke — face, arm, speech"
+    input_text: "Nửa mặt trái của tôi bị méo, tay trái yếu, nói không ra lời"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Full FAST-positive stroke — time-critical"
+
+  - id: NEURO_002
+    description: "Sudden one-sided weakness — English"
+    input_text: "My right arm and leg suddenly went weak, I can't move them properly"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Stroke presentation"
+
+  - id: NEURO_003
+    description: "Facial drooping — Vietnamese"
+    input_text: "Tôi thấy mặt bị méo miệng, cười không đều"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Facial droop is a stroke red flag"
+
+  - id: NEURO_004
+    description: "Sudden speech difficulty — English"
+    input_text: "I can't speak properly suddenly, my words are slurred"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Isolated speech difficulty still a stroke red flag"
+
+  - id: NEURO_005
+    description: "Sudden vision loss — English"
+    input_text: "I just lost vision in my left eye suddenly, it's like a curtain came down"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Amaurosis fugax / possible TIA or stroke"
+
+  # ── Thunderclap Headache ────────────────────────────────────────
+  - id: NEURO_006
+    description: "Thunderclap headache — Vietnamese"
+    input_text: "Tôi bị đau đầu dữ dội nhất từ trước đến nay, đau như sét đánh"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Classic thunderclap headache — rule out subarachnoid hemorrhage"
+
+  - id: NEURO_007
+    description: "Worst headache of life — English"
+    input_text: "I have the worst headache of my life, it came on suddenly like a thunderclap"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Thunderclap headache needs CT immediately"
+
+  # ── Loss of Consciousness ──────────────────────────────────────
+  - id: NEURO_008
+    description: "Unconscious / unresponsive — Vietnamese"
+    input_text: "Chồng tôi đột nhiên bất tỉnh, không phản ứng gì"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Unresponsiveness is always emergency"
+
+  - id: NEURO_009
+    description: "First-time seizure — English"
+    input_text: "I just had a seizure for the first time in my life, I'm confused"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "First-time seizure requires emergency evaluation"
+
+  # ── Respiratory ─────────────────────────────────────────────────
+  - id: RESP_001
+    description: "Cannot breathe — Vietnamese"
+    input_text: "Tôi không thở được, cảm giác như nghẹt thở"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Respiratory distress"
+
+  - id: RESP_002
+    description: "Severe SOB with cyanosis — English"
+    input_text: "I can't breathe, my lips are turning blue"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Cyanosis indicates hypoxia"
+
+  - id: RESP_003
+    description: "Severe difficulty breathing — English"
+    input_text: "I have severe difficulty breathing, even at rest, I'm gasping for air"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Resting respiratory distress"
+
+  # ── Anaphylaxis ─────────────────────────────────────────────────
+  - id: ALLERGY_001
+    description: "Throat swelling after eating — English"
+    input_text: "My throat is swelling up after eating shrimp, I'm having trouble breathing"
+    expected_triage: 1
+    expected_category: anaphylaxis
+    notes: "Anaphylaxis — airway compromise imminent"
+
+  - id: ALLERGY_002
+    description: "Severe allergic reaction with breathing difficulty — Vietnamese"
+    input_text: "Tôi bị dị ứng nặng, nổi mề đay khắp người và khó thở"
+    expected_triage: 1
+    expected_category: anaphylaxis
+    notes: "Anaphylaxis with respiratory involvement"
+
+  # ── Hemorrhage ──────────────────────────────────────────────────
+  - id: HEM_001
+    description: "Vomiting blood — Vietnamese"
+    input_text: "Tôi nôn ra máu đỏ tươi"
+    expected_triage: 1
+    expected_category: hemorrhage
+    notes: "Upper GI bleeding — potential esophageal varices or ulcer"
+
+  - id: HEM_002
+    description: "Coughing up blood — English"
+    input_text: "I'm coughing up blood, about a cup of bright red blood"
+    expected_triage: 1
+    expected_category: hemorrhage
+    notes: "Hemoptysis — massive, needs emergency"
+
+  # ── Mental Health Crisis ────────────────────────────────────────
+  - id: MH_001
+    description: "Active suicidal ideation — Vietnamese"
+    input_text: "Tôi muốn tự tử, tôi không muốn sống nữa"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+    notes: "Active suicidal ideation — immediate crisis intervention"
+
+  - id: MH_002
+    description: "Suicidal with plan — English"
+    input_text: "I have a plan to end my life and I want to do it tonight"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+    notes: "Suicidal ideation with plan and intent"
+
+  - id: MH_003
+    description: "Self-harm — Vietnamese"
+    input_text: "Tôi muốn tự làm hại bản thân mình"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+    notes: "Self-harm ideation"
+
+  - id: MH_004
+    description: "Don't want to live — English"
+    input_text: "I don't want to live anymore, I've been thinking about hurting myself"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+    notes: "Depression with self-harm ideation"
+
+  # ── Combined / Multi-System ─────────────────────────────────────
+  - id: COMBO_001
+    description: "Fever + stiff neck + headache (meningitis signs)"
+    input_text: "Tôi sốt cao 39 độ, cứng cổ, đau đầu dữ dội và sợ ánh sáng"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Meningitis — fever + neck stiffness + photophobia + severe headache"
+
+  # ── Wearable-Triggered Emergencies ──────────────────────────────
+  - id: WEAR_001
+    description: "SpO2 88% from wearable — emergency trigger"
+    input_text: "Tôi thấy hơi mệt, không có gì đặc biệt"
+    wearable_data:
+      spo2_percent: 88
+      heart_rate_bpm: 95
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "SpO2 < 90% is an absolute emergency regardless of symptoms"
+
+  - id: WEAR_002
+    description: "HR 160 with chest discomfort"
+    input_text: "Tim tôi đập nhanh, cảm thấy hồi hộp"
+    wearable_data:
+      heart_rate_bpm: 160
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "HR > 150 with symptoms"
+
+  - id: WEAR_003
+    description: "HR 35 bpm with dizziness — English"
+    input_text: "I feel dizzy and my heart rate monitor shows 35"
+    wearable_data:
+      heart_rate_bpm: 35
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Symptomatic bradycardia < 40"

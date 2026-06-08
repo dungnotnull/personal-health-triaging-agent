@@ -1,0 +1,49 @@
+name: PHTA CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  red-flag-gate:
+    name: Red Flag Safety Gate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pyyaml
+      - name: Run red flag validation gate
+        run: python scripts/ci_red_flag_gate.py
+      - name: Block merge on failure
+        if: failure()
+        run: |
+          echo "=========================================="
+          echo "⛔ RED FLAG GATE FAILED — BLOCKING MERGE"
+          echo "=========================================="
+          echo "One or more EMERGENCY fixtures did NOT return EMERGENCY."
+          echo "This is a patient safety regression."
+          echo "Fix all failures before merging."
+          exit 1
+
+  ci-skip-tests:
+    name: CI Gate (tests skipped — Phase 0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install core dependencies
+        run: pip install -e .
+      - name: Verify package structure
+        run: python -c "import agent, clinical, wearable, nlp, monitoring, nutrition, knowledge_crawler, storage, api; print('All packages importable')"
+      - name: Ruff lint
+        run: |
+          pip install ruff
+          ruff check agent/ clinical/ storage/ api/ --config pyproject.toml || echo "Lint warnings (non-blocking in Phase 0)"

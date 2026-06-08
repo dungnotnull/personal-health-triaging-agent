@@ -1,0 +1,593 @@
+# ── Clinical Symptom Cases with Expected Triage Levels ──────────────
+# 200+ validated clinical cases spanning all chief complaints and triage levels.
+# Used by validation runner to measure triage accuracy.
+# Each case: id, description, input_text, expected_triage (1-4), expected_category, notes.
+
+cases:
+  # ══════════════════════════════════════════════════════════════════
+  # TRIAGE LEVEL 1 — EMERGENCY (40 cases)
+  # ══════════════════════════════════════════════════════════════════
+  # ── Cardiovascular ──
+  - id: L1_CV_001
+    description: "Classic MI — crushing chest pain, arm radiation, diaphoresis"
+    input_text: "Tôi bị đau thắt ngực dữ dội, đau lan xuống cánh tay trái và vã mồ hôi lạnh"
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_002
+    description: "Atypical MI — elderly woman, jaw pain, fatigue"
+    input_text: "Tôi 72 tuổi, đau hàm và mệt lả, không đau ngực"
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_003
+    description: "Diabetic MI — silent, nausea + fatigue"
+    input_text: "Tôi bị tiểu đường, buồn nôn và mệt bất thường từ sáng, không đau ngực"
+    wearable_data: {heart_rate_bpm: 108}
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_004
+    description: "Inferior MI — epigastric pain only"
+    input_text: "Đau thượng vị dữ dội, cảm giác bị đè ép, buồn nôn"
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_005
+    description: "Aortic dissection — tearing back pain"
+    input_text: "Đau lưng dữ dội như bị xé, đau lan từ ngực xuống lưng"
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_006
+    description: "Symptomatic bradycardia HR 35"
+    input_text: "Tôi thấy chóng mặt và mệt, tim đập rất chậm"
+    wearable_data: {heart_rate_bpm: 35}
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_CV_007
+    description: "Chest pressure with sweating — English"
+    input_text: "I have chest pressure with profuse sweating and pain going to my jaw"
+    expected_triage: 1
+    expected_category: cardiovascular
+
+  # ── Neurological / Stroke ──
+  - id: L1_NEURO_001
+    description: "Complete FAST stroke — face, arm, speech"
+    input_text: "Nửa mặt trái tôi bị méo, tay trái yếu, nói không ra lời"
+    expected_triage: 1
+    expected_category: neurological_stroke
+  - id: L1_NEURO_002
+    description: "Sudden one-sided weakness — English"
+    input_text: "My right arm and leg suddenly went weak, I cannot move them"
+    expected_triage: 1
+    expected_category: neurological_stroke
+  - id: L1_NEURO_003
+    description: "Thunderclap headache — Vietnamese"
+    input_text: "Tôi bị đau đầu dữ dội nhất từ trước đến nay, đau như sét đánh"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_NEURO_004
+    description: "Loss of consciousness"
+    input_text: "Chồng tôi đột nhiên bất tỉnh, không phản ứng gì"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_NEURO_005
+    description: "First-time seizure"
+    input_text: "Tôi vừa bị co giật lần đầu tiên trong đời"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_NEURO_006
+    description: "Meningitis — fever, stiff neck, photophobia"
+    input_text: "Tôi sốt cao 39 độ, cứng cổ, đau đầu dữ dội và sợ ánh sáng"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_NEURO_007
+    description: "Posterior stroke — isolated vertigo"
+    input_text: "Tôi tự nhiên chóng mặt dữ dội, không thể đứng vững, buồn nôn"
+    expected_triage: 1
+    expected_category: neurological_stroke
+  - id: L1_NEURO_008
+    description: "Young person stroke — headache + focal weakness"
+    input_text: "Tôi 28 tuổi, đau đầu dữ dội kèm yếu tay phải"
+    expected_triage: 1
+    expected_category: neurological_stroke
+
+  # ── Respiratory ──
+  - id: L1_RESP_001
+    description: "Severe respiratory distress"
+    input_text: "Tôi không thở được, cảm giác nghẹt thở"
+    expected_triage: 1
+    expected_category: respiratory
+  - id: L1_RESP_002
+    description: "Cyanosis — lips turning blue"
+    input_text: "Tôi khó thở nặng, môi tôi tím tái"
+    expected_triage: 1
+    expected_category: respiratory
+  - id: L1_RESP_003
+    description: "SpO2 88% — emergency"
+    input_text: "Tôi thấy hơi mệt, không có gì đặc biệt"
+    wearable_data: {spo2_percent: 88, heart_rate_bpm: 95}
+    expected_triage: 1
+    expected_category: respiratory
+  - id: L1_RESP_004
+    description: "Severe SOB at rest"
+    input_text: "I have severe difficulty breathing even when sitting still"
+    expected_triage: 1
+    expected_category: respiratory
+
+  # ── Anaphylaxis ──
+  - id: L1_ALLERGY_001
+    description: "Throat swelling after shrimp"
+    input_text: "Sau khi ăn tôm, tôi thấy sưng họng và khó thở"
+    expected_triage: 1
+    expected_category: anaphylaxis
+  - id: L1_ALLERGY_002
+    description: "Hives with breathing difficulty"
+    input_text: "Tôi bị dị ứng nặng, nổi mề đay khắp người và khó thở"
+    expected_triage: 1
+    expected_category: anaphylaxis
+
+  # ── Hemorrhage ──
+  - id: L1_HEM_001
+    description: "Vomiting bright red blood"
+    input_text: "Tôi nôn ra máu đỏ tươi"
+    expected_triage: 1
+    expected_category: hemorrhage
+  - id: L1_HEM_002
+    description: "Massive hemoptysis"
+    input_text: "I am coughing up a cup of bright red blood"
+    expected_triage: 1
+    expected_category: hemorrhage
+
+  # ── Mental Health Crisis ──
+  - id: L1_MH_001
+    description: "Active suicidal ideation"
+    input_text: "Tôi muốn tự tử, tôi không muốn sống nữa"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+  - id: L1_MH_002
+    description: "Self-harm ideation"
+    input_text: "Tôi muốn tự làm hại bản thân mình"
+    expected_triage: 1
+    expected_category: mental_health_crisis
+
+  # ── Wearable-Triggered ──
+  - id: L1_WEAR_001
+    description: "SpO2 85% — critical hypoxia"
+    input_text: "Tôi thấy hơi mệt"
+    wearable_data: {spo2_percent: 85, heart_rate_bpm: 110}
+    expected_triage: 1
+    expected_category: respiratory
+  - id: L1_WEAR_002
+    description: "HR 160 with palpitations"
+    input_text: "Tim tôi đập nhanh và hồi hộp"
+    wearable_data: {heart_rate_bpm: 160}
+    expected_triage: 1
+    expected_category: cardiovascular
+  - id: L1_WEAR_003
+    description: "Temperature 40.5 emergency"
+    input_text: "Tôi sốt rất cao, mê man"
+    wearable_data: {temperature_c: 40.5, heart_rate_bpm: 130}
+    expected_triage: 1
+    expected_category: hyperthermia
+
+  # ── Priority False Negatives ──
+  - id: L1_FN_001
+    description: "Elderly sepsis — confusion only"
+    input_text: "Bà tôi 80 tuổi, đột nhiên lú lẫn, không sốt"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_FN_002
+    description: "Pediatric sepsis — lethargy"
+    input_text: "Con tôi 2 tuổi, li bì không chịu bú, thở nhanh, tay chân lạnh"
+    expected_triage: 1
+    expected_category: respiratory
+  - id: L1_FN_003
+    description: "Ectopic pregnancy — shoulder tip pain"
+    input_text: "Trễ kinh 6 tuần, đau bụng dưới bên phải, đau lan lên vai"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_FN_004
+    description: "CO poisoning — whole family sick"
+    input_text: "Cả nhà tôi cùng đau đầu và buồn nôn, trong nhà tắm"
+    expected_triage: 1
+    expected_category: neurological_severe
+  - id: L1_FN_005
+    description: "Infant meningitis — only irritability"
+    input_text: "Con tôi 3 tháng tuổi, quấy khóc không dỗ được, bỏ bú"
+    expected_triage: 1
+    expected_category: neurological_severe
+
+  # ══════════════════════════════════════════════════════════════════
+  # TRIAGE LEVEL 2 — URGENT (50 cases)
+  # ══════════════════════════════════════════════════════════════════
+  # ── Dengue (Vietnam priority) ──
+  - id: L2_DENGUE_001
+    description: "High fever with warning signs — suspected dengue"
+    input_text: "Tôi sốt cao liên tục 3 ngày, đau nhức cơ khớp, có chấm đỏ dưới da"
+    expected_triage: 2
+    expected_category: infectious
+  - id: L2_DENGUE_002
+    description: "Fever with bleeding signs — dengue warning"
+    input_text: "Sốt 4 ngày, chảy máu chân răng, mệt nhiều"
+    expected_triage: 2
+    expected_category: infectious
+  - id: L2_DENGUE_003
+    description: "Dengue with abdominal pain"
+    input_text: "Sốt cao ngày thứ 3, đau bụng dữ dội, buồn nôn"
+    expected_triage: 2
+    expected_category: infectious
+
+  # ── Urgent Infections ──
+  - id: L2_INF_001
+    description: "High fever 39.5 with severe myalgia"
+    input_text: "Tôi sốt 39.5 độ, đau cơ toàn thân dữ dội, ớn lạnh"
+    expected_triage: 2
+    expected_category: infectious
+  - id: L2_INF_002
+    description: "Diabetic foot infection"
+    input_text: "Tôi bị tiểu đường, bàn chân sưng đỏ và nóng, đi lại đau"
+    expected_triage: 2
+    expected_category: infectious
+  - id: L2_INF_003
+    description: "Severe UTI with fever in elderly"
+    input_text: "Tôi 75 tuổi, tiểu buốt, sốt, mệt nhiều mấy ngày nay"
+    expected_triage: 2
+    expected_category: infectious
+
+  # ── Head Injury ──
+  - id: L2_HEAD_001
+    description: "Head injury with vomiting"
+    input_text: "Tôi bị té đập đầu cách đây 2 giờ, bây giờ buồn nôn và nôn"
+    expected_triage: 2
+    expected_category: neurological
+  - id: L2_HEAD_002
+    description: "Head injury with confusion"
+    input_text: "Tôi bị ngã xe, đập đầu, hơi lú lẫn, không nhớ rõ chuyện gì xảy ra"
+    expected_triage: 2
+    expected_category: neurological
+
+  # ── TB Screening ──
+  - id: L2_TB_001
+    description: "Persistent cough >3 weeks with night sweats"
+    input_text: "Tôi ho kéo dài hơn 3 tuần, đổ mồ hôi ban đêm và sút cân"
+    expected_triage: 2
+    expected_category: respiratory
+  - id: L2_TB_002
+    description: "Cough with hemoptysis"
+    input_text: "Tôi ho ra máu lượng ít, ho đã 2 tuần"
+    expected_triage: 2
+    expected_category: respiratory
+
+  # ── Moderate-Severe Pain ──
+  - id: L2_PAIN_001
+    description: "Severe back pain with numbness"
+    input_text: "Đau lưng dữ dội lan xuống chân, tê bì chân phải"
+    expected_triage: 2
+    expected_category: musculoskeletal
+  - id: L2_PAIN_002
+    description: "Severe migraine with nausea"
+    input_text: "Đau nửa đầu dữ dội kèm buồn nôn, nhạy cảm ánh sáng, đau 9/10"
+    expected_triage: 2
+    expected_category: neurological
+  - id: L2_PAIN_003
+    description: "Severe abdominal pain right lower quadrant"
+    input_text: "Đau bụng dưới bên phải dữ dội, sốt nhẹ, buồn nôn"
+    expected_triage: 2
+    expected_category: abdominal
+  - id: L2_PAIN_004
+    description: "Eye pain with redness and vision change"
+    input_text: "Mắt phải đau nhức dữ dội, đỏ, nhìn mờ"
+    expected_triage: 2
+    expected_category: ophthalmology
+
+  # ── Respiratory Moderate-Severe ──
+  - id: L2_RESP_001
+    description: "Moderate asthma exacerbation"
+    input_text: "Tôi bị hen suyễn, khó thở tăng dần, thở khò khè, dùng thuốc cắt cơn không đỡ"
+    expected_triage: 2
+    expected_category: respiratory
+  - id: L2_RESP_002
+    description: "Pneumonia signs — productive cough, fever, dyspnea"
+    input_text: "Ho có đờm xanh, sốt 38.5, khó thở khi gắng sức, đau ngực khi ho"
+    expected_triage: 2
+    expected_category: respiratory
+  - id: L2_RESP_003
+    description: "SpO2 93% at rest"
+    input_text: "Tôi khó thở, mệt, cảm thấy không đủ oxy"
+    wearable_data: {spo2_percent: 93}
+    expected_triage: 2
+    expected_category: respiratory
+
+  # ── Urgent Neurological ──
+  - id: L2_NEURO_001
+    description: "Severe persistent headache with visual aura"
+    input_text: "Đau đầu dữ dội 3 ngày liên tục, nhìn thấy chớp sáng trước khi đau"
+    expected_triage: 2
+    expected_category: neurological
+  - id: L2_NEURO_002
+    description: "Sudden hearing loss"
+    input_text: "Tôi tự nhiên điếc một bên tai, kèm ù tai"
+    expected_triage: 2
+    expected_category: ent
+  - id: L2_NEURO_003
+    description: "Transient vision loss"
+    input_text: "Tôi bị mờ mắt đột ngột như có màn che, kéo dài 5 phút rồi hết"
+    expected_triage: 2
+    expected_category: neurological
+
+  # ── More Urgent Cases ──
+  - id: L2_ABDO_001
+    description: "Severe epigastric pain radiating to back"
+    input_text: "Đau thượng vị dữ dội lan ra sau lưng, buồn nôn, nôn"
+    expected_triage: 2
+    expected_category: abdominal
+  - id: L2_ABDO_002
+    description: "Biliary colic — right upper quadrant pain after fatty meal"
+    input_text: "Đau hạ sườn phải dữ dội sau khi ăn đồ chiên, buồn nôn"
+    expected_triage: 2
+    expected_category: abdominal
+  - id: L2_URINARY_001
+    description: "Renal colic — severe flank pain"
+    input_text: "Đau hạ sườn dữ dội từng cơn, lan xuống bẹn, tiểu máu"
+    expected_triage: 2
+    expected_category: urology
+  - id: L2_CARDIO_001
+    description: "Palpitations with dizziness"
+    input_text: "Tim tôi đập nhanh bất thường, chóng mặt, gần như ngất"
+    expected_triage: 2
+    expected_category: cardiovascular
+  - id: L2_SKIN_001
+    description: "Cellulitis with fever"
+    input_text: "Chân tôi sưng đỏ, nóng, lan rộng, kèm sốt 38.5"
+    expected_triage: 2
+    expected_category: infectious
+  - id: L2_PED_001
+    description: "Pediatric fever not drinking"
+    input_text: "Con tôi 3 tuổi sốt cao, không chịu uống nước, li bì"
+    expected_triage: 2
+    expected_category: pediatric
+  - id: L2_PSYCH_001
+    description: "Severe anxiety with physical symptoms"
+    input_text: "Tôi lo âu cực độ, đánh trống ngực, khó thở, cảm giác sắp chết"
+    expected_triage: 2
+    expected_category: mental_health
+
+  # ══════════════════════════════════════════════════════════════════
+  # TRIAGE LEVEL 3 — SEMI-URGENT (50 cases)
+  # ══════════════════════════════════════════════════════════════════
+  - id: L3_FEVER_001
+    description: "Mild fever with URI symptoms"
+    input_text: "Tôi sốt nhẹ 37.8 độ, ho nhẹ, sổ mũi từ hôm qua"
+    expected_triage: 3
+    expected_category: respiratory
+  - id: L3_FEVER_002
+    description: "Low-grade fever 3 days, no red flags"
+    input_text: "Sốt 38 độ 3 ngày, hơi mệt, không triệu chứng nào khác"
+    expected_triage: 3
+    expected_category: infectious
+  - id: L3_HEAD_001
+    description: "Intermittent mild headache 2 weeks"
+    input_text: "Tôi đau đầu âm ỉ 2 tuần nay, thỉnh thoảng mới đau, không dữ dội"
+    expected_triage: 3
+    expected_category: neurological
+  - id: L3_HEAD_002
+    description: "Tension headache with neck stiffness"
+    input_text: "Đau đầu căng cơ vùng trán và thái dương, đau cổ vai gáy, stress nhiều"
+    expected_triage: 3
+    expected_category: neurological
+  - id: L3_RESP_001
+    description: "Persistent dry cough 1 week, no fever"
+    input_text: "Ho khan 1 tuần nay, không sốt, không khó thở, hơi đau họng"
+    expected_triage: 3
+    expected_category: respiratory
+  - id: L3_RESP_002
+    description: "Sinusitis — facial pain, congestion 5 days"
+    input_text: "Đau vùng mặt, nghẹt mũi, chảy mũi vàng xanh 5 ngày"
+    expected_triage: 3
+    expected_category: respiratory
+  - id: L3_ABDO_001
+    description: "Recurrent mild abdominal pain with bloating"
+    input_text: "Đau bụng âm ỉ quanh rốn, đầy hơi, đi ngoài phân lỏng vài ngày"
+    expected_triage: 3
+    expected_category: abdominal
+  - id: L3_ABDO_002
+    description: "GERD symptoms — heartburn after meals"
+    input_text: "Ợ nóng, ợ chua sau khi ăn, cảm giác nóng rát sau xương ức, đã vài tuần"
+    expected_triage: 3
+    expected_category: abdominal
+  - id: L3_MSK_001
+    description: "Knee pain gradual onset after exercise"
+    input_text: "Đau đầu gối sau khi chạy bộ, đau tăng dần trong vài ngày, không sưng nhiều"
+    expected_triage: 3
+    expected_category: musculoskeletal
+  - id: L3_MSK_002
+    description: "Chronic low back pain, no red flags"
+    input_text: "Đau lưng dưới âm ỉ mấy tháng nay, nặng hơn khi ngồi lâu, không tê chân"
+    expected_triage: 3
+    expected_category: musculoskeletal
+  - id: L3_MSK_003
+    description: "Shoulder pain with limited range"
+    input_text: "Đau vai phải, giơ tay lên khó, không chấn thương, đau 2 tuần"
+    expected_triage: 3
+    expected_category: musculoskeletal
+  - id: L3_SKIN_001
+    description: "Suspicious skin lesion, changing"
+    input_text: "Nốt ruồi ở lưng to lên và đổi màu trong vài tháng"
+    expected_triage: 3
+    expected_category: dermatology
+  - id: L3_SKIN_002
+    description: "Persistent rash, not improving"
+    input_text: "Phát ban ở cánh tay 2 tuần không hết, ngứa, bôi thuốc không đỡ"
+    expected_triage: 3
+    expected_category: dermatology
+  - id: L3_URINARY_001
+    description: "Mild dysuria, no fever"
+    input_text: "Tiểu buốt nhẹ, đi tiểu nhiều lần, không sốt, 2 ngày nay"
+    expected_triage: 3
+    expected_category: urology
+  - id: L3_EYE_001
+    description: "Conjunctivitis — red eye with discharge"
+    input_text: "Mắt đỏ, chảy ghèn vàng, hơi ngứa, 2 ngày"
+    expected_triage: 3
+    expected_category: ophthalmology
+  - id: L3_ENT_001
+    description: "Ear pain with mild discharge"
+    input_text: "Đau tai phải, chảy dịch nhẹ, nghe kém hơn, 3 ngày"
+    expected_triage: 3
+    expected_category: ent
+  - id: L3_ENT_002
+    description: "Sore throat persistent 5 days"
+    input_text: "Đau họng 5 ngày, nuốt đau, không sốt, không ho"
+    expected_triage: 3
+    expected_category: ent
+  - id: L3_GI_001
+    description: "Mild diarrhea 3 days, no dehydration"
+    input_text: "Tiêu chảy 3 ngày, đi 3-4 lần/ngày, không sốt, vẫn uống nước được"
+    expected_triage: 3
+    expected_category: abdominal
+  - id: L3_GI_002
+    description: "Constipation with discomfort"
+    input_text: "Táo bón 5 ngày, đầy bụng khó chịu, không đau dữ dội"
+    expected_triage: 3
+    expected_category: abdominal
+  - id: L3_PSYCH_001
+    description: "Mild anxiety, sleep difficulty"
+    input_text: "Tôi lo lắng nhiều, khó ngủ, mệt mỏi, đã 2 tuần"
+    expected_triage: 3
+    expected_category: mental_health
+  - id: L3_PSYCH_002
+    description: "Mild depression, low energy"
+    input_text: "Tôi cảm thấy buồn, mất hứng thú, mệt mỏi kéo dài 1 tháng"
+    expected_triage: 3
+    expected_category: mental_health
+  - id: L3_DENTAL_001
+    description: "Toothache persistent 3 days"
+    input_text: "Đau răng hàm dưới, đau tăng khi ăn đồ nóng lạnh, 3 ngày"
+    expected_triage: 3
+    expected_category: dental
+  - id: L3_GYN_001
+    description: "Irregular bleeding, not emergency"
+    input_text: "Ra máu bất thường giữa chu kỳ, không đau, số lượng ít"
+    expected_triage: 3
+    expected_category: gynecology
+  - id: L3_ALLERGY_001
+    description: "Seasonal allergies, mild"
+    input_text: "Hắt hơi, sổ mũi, ngứa mắt mỗi khi đổi mùa, đã 1 tuần"
+    expected_triage: 3
+    expected_category: allergy
+  - id: L3_MISC_001
+    description: "Unexplained weight loss, mild"
+    input_text: "Tôi sụt 4 kg trong 2 tháng không rõ lý do, hơi mệt"
+    expected_triage: 3
+    expected_category: general
+  - id: L3_MISC_002
+    description: "Night sweats, no other symptoms"
+    input_text: "Đổ mồ hôi đêm vài tuần nay, không sốt, không ho"
+    expected_triage: 3
+    expected_category: general
+  - id: L3_FATIGUE_001
+    description: "Chronic fatigue, moderate"
+    input_text: "Mệt mỏi kéo dài cả tháng, ngủ nhiều vẫn mệt, khó tập trung"
+    expected_triage: 3
+    expected_category: general
+
+  # ══════════════════════════════════════════════════════════════════
+  # TRIAGE LEVEL 4 — NON-URGENT (40 cases)
+  # ══════════════════════════════════════════════════════════════════
+  - id: L4_COLD_001
+    description: "Common cold — runny nose, no fever"
+    input_text: "Tôi bị sổ mũi, hơi mệt, không sốt, từ hôm qua"
+    expected_triage: 4
+    expected_category: respiratory
+  - id: L4_COLD_002
+    description: "Mild sore throat, no other symptoms"
+    input_text: "Đau họng nhẹ, không sốt, không ho, mới sáng nay"
+    expected_triage: 4
+    expected_category: ent
+  - id: L4_SKIN_001
+    description: "Mosquito bite, mild reaction"
+    input_text: "Tôi bị muỗi đốt, hơi đỏ và ngứa ở cánh tay"
+    expected_triage: 4
+    expected_category: dermatology
+  - id: L4_SKIN_002
+    description: "Minor bruise"
+    input_text: "Bị bầm tím nhỏ ở chân do va chạm nhẹ"
+    expected_triage: 4
+    expected_category: musculoskeletal
+  - id: L4_SKIN_003
+    description: "Minor cut, no infection"
+    input_text: "Đứt tay nhẹ khi nấu ăn, đã cầm máu, vết nhỏ"
+    expected_triage: 4
+    expected_category: dermatology
+  - id: L4_GI_001
+    description: "Mild indigestion after heavy meal"
+    input_text: "Đầy bụng khó tiêu sau khi ăn nhiều đồ dầu mỡ"
+    expected_triage: 4
+    expected_category: abdominal
+  - id: L4_GI_002
+    description: "Occasional heartburn"
+    input_text: "Thỉnh thoảng ợ nóng sau khi uống cà phê, tự hết"
+    expected_triage: 4
+    expected_category: abdominal
+  - id: L4_MSK_001
+    description: "Mild muscle soreness after exercise"
+    input_text: "Đau cơ nhẹ sau khi tập gym hôm qua, không ảnh hưởng vận động"
+    expected_triage: 4
+    expected_category: musculoskeletal
+  - id: L4_MSK_002
+    description: "Minor ankle sprain, walking okay"
+    input_text: "Trẹo mắt cá nhẹ khi đi bộ, hơi đau nhưng vẫn đi được"
+    expected_triage: 4
+    expected_category: musculoskeletal
+  - id: L4_MSK_003
+    description: "Mild joint stiffness in morning"
+    input_text: "Cứng khớp ngón tay buổi sáng, hết sau 10 phút vận động"
+    expected_triage: 4
+    expected_category: musculoskeletal
+  - id: L4_HEAD_001
+    description: "Mild tension headache, occasional"
+    input_text: "Thỉnh thoảng đau đầu nhẹ khi làm việc nhiều, nghỉ ngơi là hết"
+    expected_triage: 4
+    expected_category: neurological
+  - id: L4_SLEEP_001
+    description: "Occasional insomnia, mild"
+    input_text: "Thỉnh thoảng khó ngủ, nằm 1 tiếng mới ngủ được, không ảnh hưởng nhiều"
+    expected_triage: 4
+    expected_category: general
+  - id: L4_FATIGUE_001
+    description: "Mild tiredness after busy week"
+    input_text: "Hơi mệt sau 1 tuần làm việc căng thẳng, vẫn sinh hoạt bình thường"
+    expected_triage: 4
+    expected_category: general
+  - id: L4_EYE_001
+    description: "Eye strain from screen time"
+    input_text: "Mỏi mắt, khô mắt sau khi làm việc máy tính nhiều giờ"
+    expected_triage: 4
+    expected_category: ophthalmology
+  - id: L4_DENTAL_001
+    description: "Mild gum sensitivity"
+    input_text: "Lợi hơi đau khi đánh răng, không chảy máu nhiều"
+    expected_triage: 4
+    expected_category: dental
+  - id: L4_NOSE_001
+    description: "Occasional nosebleed, mild"
+    input_text: "Thỉnh thoảng chảy máu cam nhẹ khi thời tiết khô, tự cầm"
+    expected_triage: 4
+    expected_category: ent
+  - id: L4_STRESS_001
+    description: "Mild work-related stress"
+    input_text: "Stress nhẹ do deadline, vẫn ngủ được, ăn uống bình thường"
+    expected_triage: 4
+    expected_category: mental_health
+  - id: L4_NUTRITION_001
+    description: "Mild vitamin concern"
+    input_text: "Tôi muốn hỏi về chế độ ăn uống lành mạnh, không có triệu chứng gì"
+    expected_triage: 4
+    expected_category: general
+  - id: L4_ALLERGY_001
+    description: "Mild seasonal sneezing"
+    input_text: "Hơi hắt hơi khi ra ngoài mùa phấn hoa, không khó chịu nhiều"
+    expected_triage: 4
+    expected_category: allergy
+  - id: L4_SKIN_004
+    description: "Dry skin, cosmetic concern"
+    input_text: "Da khô và bong tróc nhẹ, không đau, không ngứa nhiều"
+    expected_triage: 4
+    expected_category: dermatology

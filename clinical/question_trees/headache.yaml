@@ -1,0 +1,49 @@
+# ── Headache Question Tree ─────────────────────────────────────────
+
+chief_complaint: headache
+snomed_code: "25064002"
+icd11_code: "MG31"
+
+initial_questions:
+  - id: HA_Q1
+    question_vi: "Cơn đau đầu này bắt đầu như thế nào — đột ngột hay từ từ?"
+    question_en: "Did this headache come on suddenly or gradually?"
+    options: [sudden, gradual]
+
+  - id: HA_Q2
+    question_vi: "Bạn đánh giá mức độ đau từ 1 đến 10, trong đó 10 là đau nhất từ trước đến nay?"
+    question_en: "On a scale of 1-10, how severe is the pain, with 10 being the worst pain you've ever had?"
+    type: numeric_scale
+
+  - id: HA_Q3
+    question_vi: "Bạn có thấy đau ở vị trí nào cụ thể trên đầu không?"
+    question_en: "Is there a specific location of the pain on your head?"
+    type: free_text
+
+  - id: HA_Q4
+    question_vi: "Có triệu chứng nào đi kèm không? (buồn nôn, nhạy cảm ánh sáng, sốt...)"
+    question_en: "Are there any associated symptoms? (nausea, light sensitivity, fever...)"
+    type: free_text
+
+  - id: HA_Q5
+    question_vi: "Bạn có đang uống thuốc gì không?"
+    question_en: "Are you currently taking any medications?"
+    type: free_text
+
+branching:
+  HA_Q1_sudden:
+    if: "sudden onset AND severity >= 8"
+    trigger_red_flag: "thunderclap_headache"
+    action: EMERGENCY
+
+  HA_Q1_gradual:
+    next_questions:
+      - id: HA_Q6
+        question_vi: "Bạn có đang bị sốt hoặc cứng cổ không?"
+        question_en: "Do you have fever or a stiff neck?"
+        type: free_text
+
+      - id: HA_Q7
+        question_vi: "Đau đầu này có ảnh hưởng đến giấc ngủ hoặc công việc của bạn không?"
+        question_en: "Is this headache affecting your sleep or ability to work?"
+        type: free_text

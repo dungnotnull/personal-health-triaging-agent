@@ -1,0 +1,36 @@
+# ── Respiratory Question Tree ──────────────────────────────────────
+
+chief_complaint: respiratory
+snomed_code: "267036007"
+icd11_code: "MD11"
+
+initial_questions:
+  - id: RES_Q1
+    question_vi: "Khó thở bắt đầu từ khi nào? Đột ngột hay từ từ?"
+    question_en: "When did the breathing difficulty start? Sudden or gradual?"
+    options: [sudden, gradual]
+
+  - id: RES_Q2
+    question_vi: "Bạn đánh giá mức độ khó thở từ 1 đến 10 như thế nào?"
+    question_en: "On a scale of 1-10, how severe is the breathing difficulty?"
+    type: numeric_scale
+
+  - id: RES_Q3
+    question_vi: "Khó thở xảy ra khi nào? (khi nghỉ, khi gắng sức, khi nằm...)"
+    question_en: "When does the difficulty occur? (at rest, on exertion, when lying down...)"
+    type: free_text
+
+  - id: RES_Q4
+    question_vi: "Có ho, sốt, hoặc đau ngực kèm theo không?"
+    question_en: "Is there cough, fever, or chest pain with it?"
+    type: free_text
+
+  - id: RES_Q5
+    question_vi: "Bạn có tiền sử hen suyễn, COPD, hoặc dị ứng không?"
+    question_en: "Do you have a history of asthma, COPD, or allergies?"
+    type: free_text
+
+  - id: RES_Q6
+    question_vi: "Có đờm không? Màu gì?"
+    question_en: "Is there phlegm? What color?"
+    type: free_text

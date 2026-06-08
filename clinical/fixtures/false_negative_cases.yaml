@@ -1,0 +1,296 @@
+# ── False Negative Cases — Historically Missed Emergencies ──────────
+# Priority validation fixtures. These are cases KNOWN to be easily
+# missed by triage systems. ALL must result in EMERGENCY (triage level 1).
+# Any failure here is a patient safety regression.
+
+cases:
+  # ══════════════════════════════════════════════════════════════════
+  # ATYPICAL MI PRESENTATIONS (most commonly missed)
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_CV_001
+    description: "Diabetic MI — no chest pain, only nausea and fatigue"
+    input_text: "Tôi bị tiểu đường, cảm thấy buồn nôn và mệt bất thường từ sáng"
+    wearable_data: {heart_rate_bpm: 108}
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Diabetics often have silent MIs"
+  - id: FN_CV_002
+    description: "Elderly female MI — only jaw pain and fatigue"
+    input_text: "Tôi 72 tuổi, đau hàm và mệt, không đau ngực"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Elderly women frequently have atypical MI presentation"
+  - id: FN_CV_003
+    description: "MI as epigastric pain only"
+    input_text: "Đau thượng vị dữ dội, cảm giác bị đè ép, buồn nôn"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Inferior MI can mimic GI symptoms"
+  - id: FN_CV_004
+    description: "Young female MI — fatigue and dyspnea, no chest pain"
+    input_text: "Tôi 35 tuổi, mệt bất thường, hơi khó thở, không đau ngực"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Young women have atypical MI presentations"
+  - id: FN_CV_005
+    description: "Isolated arm pain — cardiac equivalent"
+    input_text: "Đau cánh tay trái dữ dội đột ngột, hơi tê, không đau ngực"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Isolated arm pain can be cardiac equivalent"
+
+  # ══════════════════════════════════════════════════════════════════
+  # SUBTLE STROKE PRESENTATIONS
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_NEURO_001
+    description: "Posterior circulation stroke — vertigo only"
+    input_text: "Tôi tự nhiên chóng mặt dữ dội, không thể đứng vững, buồn nôn"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Isolated vertigo can be posterior circulation stroke"
+  - id: FN_NEURO_002
+    description: "Young person stroke dismissed as migraine"
+    input_text: "Tôi 28 tuổi, đau đầu dữ dội kèm yếu tay phải, nghĩ là đau nửa đầu"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Young people get strokes too"
+  - id: FN_NEURO_003
+    description: "Transient ischemic attack — symptoms resolved"
+    input_text: "Tôi bị yếu nửa người trái 10 phút rồi hết, bây giờ bình thường"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "TIA is a medical emergency — precedes stroke"
+  - id: FN_NEURO_004
+    description: "Sudden gait disturbance — cerebellar stroke"
+    input_text: "Tôi tự nhiên đi không vững, loạng choạng như say rượu nhưng không uống"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Cerebellar stroke can present with isolated ataxia"
+  - id: FN_NEURO_005
+    description: "Isolated speech difficulty — no other stroke signs"
+    input_text: "Tôi tự nhiên nói khó, nhưng tay chân vẫn bình thường"
+    expected_triage: 1
+    expected_category: neurological_stroke
+    notes: "Isolated aphasia is a stroke until proven otherwise"
+
+  # ══════════════════════════════════════════════════════════════════
+  # MISSED SEPSIS
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_SEPSIS_001
+    description: "Elderly sepsis — confusion only, no fever"
+    input_text: "Bà tôi 80 tuổi, đột nhiên lú lẫn, không sốt, tiểu buốt"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Elderly sepsis — confusion may be the only sign"
+  - id: FN_SEPSIS_002
+    description: "Pediatric sepsis — lethargy and poor feeding"
+    input_text: "Con tôi 2 tuổi, li bì không chịu bú, thở nhanh, tay chân lạnh"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Pediatric sepsis — lethargy + tachypnea"
+  - id: FN_SEPSIS_003
+    description: "Neutropenic sepsis — afebrile"
+    input_text: "Tôi đang hóa trị, rất mệt, không sốt nhưng người lạnh run"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Immunocompromised patients may not mount fever"
+  - id: FN_SEPSIS_004
+    description: "Post-operative sepsis — subtle"
+    input_text: "Mới mổ cách đây 5 ngày, hơi khó thở, mệt nhiều, vết mổ không đau"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Post-op sepsis can be subtle"
+
+  # ══════════════════════════════════════════════════════════════════
+  # MISSED MENINGITIS
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_MENING_001
+    description: "Infant meningitis — only irritability and bulging fontanelle"
+    input_text: "Con tôi 3 tháng tuổi, quấy khóc không dỗ được, bỏ bú, thóp phồng"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Infant meningitis — non-specific signs"
+  - id: FN_MENING_002
+    description: "Meningitis — fever + headache, no neck stiffness"
+    input_text: "Sốt cao 39.5, đau đầu dữ dội, sợ ánh sáng, nhưng cổ vẫn mềm"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Neck stiffness may be absent early in meningitis"
+  - id: FN_MENING_003
+    description: "Meningococcal — rapid rash"
+    input_text: "Sốt cao đột ngột, đau đầu dữ dội, có ban xuất huyết dưới da lan nhanh"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Meningococcemia can progress to death in hours"
+
+  # ══════════════════════════════════════════════════════════════════
+  # MISSED AAA / DISSECTION
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_VASC_001
+    description: "Aortic dissection — tearing back pain"
+    input_text: "Đau lưng dữ dội như bị xé, đau lan từ ngực xuống lưng"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Aortic dissection — tearing pain + migration"
+  - id: FN_VASC_002
+    description: "AAA rupture — back pain + hypotension"
+    input_text: "Đau lưng dữ dội đột ngột, chóng mặt muốn xỉu, bụng đau"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Ruptured AAA — back pain + shock"
+
+  # ══════════════════════════════════════════════════════════════════
+  # MISSED ECTOPIC PREGNANCY
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_OBGYN_001
+    description: "Ectopic — shoulder tip pain + missed period"
+    input_text: "Trễ kinh 6 tuần, đau bụng dưới bên phải, đau lan lên vai"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Shoulder tip pain suggests peritoneal irritation from rupture"
+  - id: FN_OBGYN_002
+    description: "Ectopic — syncope + abdominal pain"
+    input_text: "Đau bụng dữ dội đột ngột, ngất xỉu, trễ kinh 8 tuần"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Syncope with abdominal pain in reproductive-age woman"
+
+  # ══════════════════════════════════════════════════════════════════
+  # MISSED TOXIC / ENVIRONMENTAL
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_TOX_001
+    description: "CO poisoning — whole family headache + nausea"
+    input_text: "Cả nhà tôi cùng đau đầu và buồn nôn, đặc biệt trong nhà tắm"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Multiple family members + enclosed space = CO toxicity"
+  - id: FN_TOX_002
+    description: "Organophosphate poisoning — SLUDGE syndrome"
+    input_text: "Tôi tự nhiên chảy nước dãi, đổ mồ hôi, tiêu chảy, co đồng tử sau khi phun thuốc"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Cholinergic toxidrome — requires atropine"
+  - id: FN_TOX_003
+    description: "Snake bite — neurotoxic, Vietnam context"
+    input_text: "Tôi bị rắn cắn ở chân, bây giờ sụp mí mắt, khó thở"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Neurotoxic snake envenomation — needs antivenom immediately"
+
+  # ══════════════════════════════════════════════════════════════════
+  # WEARABLE DATA — BORDERLINE BUT DANGEROUS
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_WEAR_001
+    description: "SpO2 91% — borderline but with symptoms"
+    input_text: "Hơi khó thở, mệt"
+    wearable_data: {spo2_percent: 91, heart_rate_bpm: 105}
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "SpO2 91% + symptoms = borderline emergency"
+  - id: FN_WEAR_002
+    description: "HRV collapse — physiological stress marker"
+    input_text: "Tôi cảm thấy rất mệt mỏi bất thường, không sốt, không đau"
+    wearable_data: {heart_rate_bpm: 98, hrv_rmssd_ms: 8, hrv_baseline_ms: 35}
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "HRV collapse indicates severe physiological stress"
+
+  # ══════════════════════════════════════════════════════════════════
+  # VIETNAM-SPECIFIC MISSED EMERGENCIES
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_VN_001
+    description: "Severe dengue — warning signs (abdominal pain, mucosal bleeding)"
+    input_text: "Sốt xuất huyết ngày thứ 4, hết sốt nhưng đau bụng dữ dội, chảy máu chân răng"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Dengue warning signs — plasma leakage phase"
+  - id: FN_VN_002
+    description: "Rabies exposure — animal bite with neurological signs"
+    input_text: "Tôi bị chó cắn 1 tháng trước, bây giờ sợ nước, sợ gió, co thắt họng"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Rabies — once symptomatic, nearly 100% fatal"
+  - id: FN_VN_003
+    description: "Hand Foot Mouth — pediatric with CNS signs"
+    input_text: "Cháu tôi bị tay chân miệng, bây giờ giật mình nhiều, sốt cao, run chi"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "HFMD with neurological involvement — can progress rapidly"
+  - id: FN_VN_004
+    description: "Japanese Encephalitis — fever + altered consciousness"
+    input_text: "Sốt cao 3 ngày, đau đầu, hôm nay lơ mơ, cứng cổ"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "JE — endemic in Vietnam, high mortality"
+  - id: FN_VN_005
+    description: "Leptospirosis — fever + jaundice + myalgia"
+    input_text: "Sốt cao, đau cơ bắp chân dữ dội, vàng mắt, đi ngoài ruộng hay lội nước"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Weil's disease — leptospirosis with hepatic and renal involvement"
+
+  # ══════════════════════════════════════════════════════════════════
+  # PEDIATRIC EMERGENCIES (easily dismissed)
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_PED_001
+    description: "Kawasaki disease — prolonged fever with rash"
+    input_text: "Con tôi sốt 6 ngày, phát ban, mắt đỏ, lưỡi dâu, môi nứt"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Kawasaki — risk of coronary artery aneurysm"
+  - id: FN_PED_002
+    description: "Intussusception — colicky pain + currant jelly stool"
+    input_text: "Con tôi 1 tuổi, khóc thét từng cơn, co chân lên bụng, đi ngoài máu nhầy"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Intussusception — surgical emergency"
+  - id: FN_PED_003
+    description: "Pyloric stenosis — projectile vomiting"
+    input_text: "Con tôi 4 tuần tuổi, nôn vọt sau mỗi lần bú, sụt cân, vẫn đòi bú"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Pyloric stenosis — needs surgical correction"
+
+  # ══════════════════════════════════════════════════════════════════
+  # CARDIAC — OTHER MISSED
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_CV_006
+    description: "PE — pleuritic chest pain + dyspnea"
+    input_text: "Đau ngực kiểu màng phổi, khó thở đột ngột, ho ra ít máu, mới đi máy bay dài"
+    expected_triage: 1
+    expected_category: respiratory
+    notes: "Pulmonary embolism — pleuritic pain + dyspnea + risk factor"
+  - id: FN_CV_007
+    description: "Cardiac tamponade — Beck triad"
+    input_text: "Khó thở nặng, tĩnh mạch cổ nổi, huyết áp tụt sau tai nạn"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Cardiac tamponade — Beck's triad"
+  - id: FN_CV_008
+    description: "Pericarditis — positional chest pain"
+    input_text: "Đau ngực dữ dội, nặng hơn khi nằm, đỡ khi ngồi dậy, sốt nhẹ"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Pericarditis with ECG changes"
+
+  # ══════════════════════════════════════════════════════════════════
+  # ENDOCRINE EMERGENCIES
+  # ══════════════════════════════════════════════════════════════════
+  - id: FN_ENDO_001
+    description: "DKA — deep breathing + confusion"
+    input_text: "Tôi bị tiểu đường, nôn nhiều, thở sâu, lú lẫn, đường huyết cao"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Diabetic ketoacidosis — Kussmaul breathing"
+  - id: FN_ENDO_002
+    description: "Hypoglycemia — confusion + diaphoresis"
+    input_text: "Tôi bị tiểu đường, tự nhiên vã mồ hôi lạnh, run, lú lẫn, không đo được đường"
+    expected_triage: 1
+    expected_category: neurological_severe
+    notes: "Severe hypoglycemia — neuroglycopenic symptoms"
+  - id: FN_ENDO_003
+    description: "Thyroid storm — fever + tachycardia + agitation"
+    input_text: "Tôi bị cường giáp, sốt 40 độ, tim đập 140, kích động, vã mồ hôi"
+    expected_triage: 1
+    expected_category: cardiovascular
+    notes: "Thyroid storm — high mortality if untreated"

@@ -1,0 +1,42 @@
+# ── Specialty Routing — Symptom → Specialist Type ──────────────────
+
+symptom_clusters:
+  headache_fever_stiff_neck:
+    specialty: emergency_neurology
+    urgency: URGENT
+
+  chest_pain_exertion:
+    specialty: cardiology
+    urgency: URGENT
+
+  persistent_cough_3weeks:
+    specialty: pulmonology
+    urgency: SEMI_URGENT
+
+  abdominal_pain_right_lower:
+    specialty: surgery_emergency
+    urgency: URGENT
+
+  rash_fever_joint_pain:
+    specialty: dermatology_or_rheumatology
+    urgency: SEMI_URGENT
+
+  back_pain_with_numbness:
+    specialty: orthopedics_or_neurology
+    urgency: SEMI_URGENT
+
+  urinary_symptoms:
+    specialty: urology_or_primary_care
+    urgency: SEMI_URGENT
+
+  eye_redness_pain:
+    specialty: ophthalmology
+    urgency: URGENT
+
+  ear_pain_discharge:
+    specialty: ent
+    urgency: SEMI_URGENT
+
+  mental_health_distress:
+    specialty: psychiatry_or_psychology
+    urgency: URGENT

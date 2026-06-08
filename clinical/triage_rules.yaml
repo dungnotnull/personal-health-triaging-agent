@@ -1,0 +1,163 @@
+# ── Evidence-Based Triage Decision Rules ────────────────────────────
+# Used by the triage_classifier rule-engine layer.
+# Rules here ALWAYS override the ML classifier output.
+#
+# Update protocol: Requires clinical advisor approval.
+# All changes must be validated against clinical fixtures.
+# ────────────────────────────────────────────────────────────────────
+
+# ── Hard Override Rules ───────────────────────────────────────────
+# These combinations ALWAYS produce the specified triage level,
+# regardless of what the ML model outputs.
+hard_overrides:
+
+  # Chest pain + autonomic symptoms → EMERGENCY
+  - id: CARDIO_OVERRIDE_001
+    description: "Chest pain with diaphoresis or radiation"
+    conditions:
+      - chief_complaint: "chest_pain"
+      - any_of:
+          - "diaphoresis"
+          - "radiating_to_arm"
+          - "radiating_to_jaw"
+          - "associated_nausea"
+    triage_level: 1
+    confidence: 0.99
+    rationale: "High risk of acute coronary syndrome — do not delay"
+
+  # Sudden severe headache (thunderclap) → EMERGENCY
+  - id: NEURO_OVERRIDE_001
+    description: "Thunderclap headache (sudden onset, max severity)"
+    conditions:
+      - chief_complaint: "headache"
+      - onset: "sudden"
+      - severity: [8, 9, 10]
+    triage_level: 1
+    confidence: 0.99
+    rationale: "Rule out subarachnoid hemorrhage"
+
+  # Altered consciousness → EMERGENCY
+  - id: NEURO_OVERRIDE_002
+    description: "Loss of consciousness or altered mental status"
+    conditions:
+      - any_of:
+          - "loss_of_consciousness"
+          - "unresponsive"
+          - "altered_mental_status"
+          - "confusion_acute"
+    triage_level: 1
+    confidence: 0.99
+    rationale: "Acute loss of consciousness requires immediate evaluation"
+
+  # Respiratory distress → EMERGENCY
+  - id: RESP_OVERRIDE_001
+    description: "Severe respiratory distress at rest"
+    conditions:
+      - chief_complaint: "respiratory"
+      - severity: [8, 9, 10]
+      - rest: true
+    triage_level: 1
+    confidence: 0.99
+    rationale: "Resting respiratory distress is a medical emergency"
+
+  # Fever + stiff neck + photophobia → EMERGENCY
+  - id: NEURO_OVERRIDE_003
+    description: "Fever with meningeal signs"
+    conditions:
+      - chief_complaint: "fever"
+      - any_of:
+          - "stiff_neck"
+          - "photophobia"
+          - "neck_pain_with_fever"
+    triage_level: 1
+    confidence: 0.99
+    rationale: "Rule out meningitis"
+
+  # Abdominal pain + rigid abdomen → EMERGENCY
+  - id: ABDO_OVERRIDE_001
+    description: "Acute abdomen with rigidity"
+    conditions:
+      - chief_complaint: "abdominal_pain"
+      - any_of:
+          - "rigid_abdomen"
+          - "board_like_abdomen"
+          - "severe_tenderness_with_rebound"
+    triage_level: 1
+    confidence: 0.99
+    rationale: "Surgical abdomen — requires immediate evaluation"
+
+# ── Conservative Triage Rules ──────────────────────────────────────
+# When ML says X, these rules may escalate to X-1 or higher.
+conservative_escalations:
+
+  - id: CONS_001
+    description: "Elderly patient with infection signs → escalate one level"
+    conditions:
+      - age_group: "elderly"
+      - any_of:
+          - "fever"
+          - "suspected_infection"
+          - "confusion_acute"
+    min_level: 2
+    rationale: "Elderly patients present atypically and decompensate faster"
+
+  - id: CONS_002
+    description: "Immunocompromised with any systemic symptom → escalate"
+    conditions:
+      - immunocompromised: true
+      - systemic_symptoms: true
+    min_level: 2
+    rationale: "Immunocompromised patients deteriorate faster with infection"
+
+  - id: CONS_003
+    description: "Diabetic with foot infection → escalate"
+    conditions:
+      - has_diabetes: true
+      - chief_complaint: "foot_pain"
+      - any_of:
+          - "swelling"
+          - "redness"
+          - "warm_to_touch"
+    min_level: 2
+    rationale: "Diabetic foot infections require urgent evaluation"
+
+  - id: CONS_004
+    description: "Pediatric fever + lethargy → escalate to URGENT minimum"
+    conditions:
+      - age_group: "pediatric"
+      - chief_complaint: "fever"
+      - any_of:
+          - "lethargy"
+          - "not_drinking"
+          - "decreased_urine_output"
+    min_level: 2
+    rationale: "Pediatric dehydration and sepsis risk"
+
+# ── Wearable-Based Escalations ─────────────────────────────────────
+wearable_escalations:
+
+  - id: WEAR_001
+    description: "SpO2 < 94% → escalate one triage level"
+    conditions:
+      spo2_percent:
+        less_than: 94
+    min_level: 2
+    rationale: "Hypoxia warrants at least urgent evaluation"
+
+  - id: WEAR_002
+    description: "Resting HR > 120 with symptoms → URGENT minimum"
+    conditions:
+      heart_rate_bpm:
+        greater_than: 120
+      at_rest: true
+      symptomatic: true
+    min_level: 2
+    rationale: "Symptomatic tachycardia requires evaluation"
+
+  - id: WEAR_003
+    description: "HRV significantly below baseline → contextual escalation"
+    conditions:
+      hrv_below_baseline_sd: 2.0
+    escalation: "Consider +1 level if accompanied by symptoms"
+    mandatory: false
+    rationale: "Low HRV indicates high physiological stress"

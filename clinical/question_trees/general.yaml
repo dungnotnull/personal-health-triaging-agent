@@ -1,0 +1,41 @@
+# ── General Symptom Question Tree ──────────────────────────────────
+# Used when no chief-complaint-specific tree matches.
+
+chief_complaint: general
+snomed_code: null
+
+initial_questions:
+  - id: GEN_Q1
+    question_vi: "Triệu chứng chính của bạn là gì?"
+    question_en: "What is your main symptom or concern?"
+    type: free_text
+
+  - id: GEN_Q2
+    question_vi: "Triệu chứng này bắt đầu từ khi nào? Đột ngột hay từ từ?"
+    question_en: "When did this start? Was it sudden or gradual?"
+    type: free_text
+
+  - id: GEN_Q3
+    question_vi: "Bạn đánh giá mức độ nghiêm trọng từ 1 đến 10 như thế nào?"
+    question_en: "On a scale of 1 to 10, how severe is it?"
+    type: numeric_scale
+
+  - id: GEN_Q4
+    question_vi: "Có triệu chứng nào khác đi kèm không?"
+    question_en: "Are there any other symptoms you've noticed?"
+    type: free_text
+
+  - id: GEN_Q5
+    question_vi: "Bạn có đang uống thuốc gì không?"
+    question_en: "Are you currently taking any medications?"
+    type: free_text
+
+  - id: GEN_Q6
+    question_vi: "Bạn có tiền sử bệnh lý nào không? (tiểu đường, cao huyết áp, tim mạch...)"
+    question_en: "Do you have any existing medical conditions? (diabetes, hypertension, heart disease...)"
+    type: free_text
+
+  - id: GEN_Q7
+    question_vi: "Có điều gì làm triệu chứng nặng hơn hoặc nhẹ đi không?"
+    question_en: "Is there anything that makes your symptoms better or worse?"
+    type: free_text

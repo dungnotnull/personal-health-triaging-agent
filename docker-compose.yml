@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+  # ── PHTA API Server ──────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phta-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./agent:/app/agent:ro
+      - ./clinical:/app/clinical:ro
+      - ./wearable:/app/wearable:ro
+      - ./nlp:/app/nlp:ro
+      - ./monitoring:/app/monitoring:ro
+      - ./nutrition:/app/nutrition:ro
+      - ./storage:/app/storage:ro
+      - ./api:/app/api:ro
+      - phta_data:/app/data
+    environment:
+      - HEALTH_DB_PATH=/app/data/health.db
+      - HEALTH_DB_ENCRYPTION_KEY=${HEALTH_DB_ENCRYPTION_KEY:-}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.1:8b}
+      - WHISPER_MODEL=${WHISPER_MODEL:-large-v3}
+      - TTS_PROVIDER=${TTS_PROVIDER:-edge_tts}
+      - SESSION_TTL_HOURS=${SESSION_TTL_HOURS:-24}
+    command: uvicorn api.server:app --host 0.0.0.0 --port 8000
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Ollama (Local LLM) ──────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: phta-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    # Note: Pull models manually first:
+    #   docker compose exec ollama ollama pull llama3.1:8b
+    #   docker compose exec ollama ollama pull nomic-embed-text
+
+  # ── Whisper (STT Service) ───────────────────────────────────────
+  whisper:
+    build:
+      context: .
+      dockerfile: Dockerfile.whisper
+    container_name: phta-whisper
+    ports:
+      - "9000:9000"
+    volumes:
+      - whisper_data:/app/models
+    environment:
+      - WHISPER_MODEL=${WHISPER_MODEL:-large-v3}
+    command: python -m nlp.voice.stt_service
+    restart: unless-stopped
+    profiles:
+      - voice
+
+volumes:
+  phta_data:
+  ollama_data:
+  whisper_data:

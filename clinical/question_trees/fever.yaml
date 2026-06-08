@@ -1,0 +1,49 @@
+# ── Fever Question Tree ────────────────────────────────────────────
+
+chief_complaint: fever
+snomed_code: "386661006"
+icd11_code: "MG26"
+
+initial_questions:
+  - id: FV_Q1
+    question_vi: "Nhiệt độ của bạn là bao nhiêu? Bạn đã đo chưa?"
+    question_en: "What is your temperature? Have you measured it?"
+    type: free_text
+
+  - id: FV_Q2
+    question_vi: "Sốt bắt đầu từ khi nào? Đã kéo dài bao lâu?"
+    question_en: "When did the fever start? How long has it been going on?"
+    type: free_text
+
+  - id: FV_Q3
+    question_vi: "Có triệu chứng nào khác đi kèm không? (đau đầu, đau cơ, phát ban, ho, đau bụng...)"
+    question_en: "Are there any other symptoms? (headache, muscle pain, rash, cough, abdominal pain...)"
+    type: free_text
+
+  - id: FV_Q4
+    question_vi: "Bạn có thấy cứng cổ hoặc nhạy cảm với ánh sáng không?"
+    question_en: "Do you have a stiff neck or sensitivity to light?"
+    type: free_text
+
+  - id: FV_Q5
+    question_vi: "Bạn có đang uống thuốc hạ sốt gì không? Loại gì?"
+    question_en: "Are you taking any fever-reducing medication? What kind?"
+    type: free_text
+
+  - id: FV_Q6
+    question_vi: "Bạn có tiền sử bệnh lý nào không? (tiểu đường, suy giảm miễn dịch...)"
+    question_en: "Do you have any existing medical conditions? (diabetes, immunocompromised...)"
+    type: free_text
+
+  - id: FV_Q7
+    question_vi: "Gần đây bạn có đi đâu, tiếp xúc với ai bị ốm, hoặc bị côn trùng đốt không?"
+    question_en: "Have you traveled recently, been in contact with anyone sick, or had any insect bites?"
+    type: free_text
+
+branching:
+  FV_Q4_stiff_neck:
+    next_questions:
+      - id: FV_Q8
+        question_vi: "Bạn có bị phát ban kèm theo không?"
+        question_en: "Do you have a rash along with the fever?"
+        type: free_text

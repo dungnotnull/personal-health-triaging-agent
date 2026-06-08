@@ -1,0 +1,41 @@
+# ── Abdominal Pain Question Tree ───────────────────────────────────
+
+chief_complaint: abdominal_pain
+snomed_code: "21522001"
+icd11_code: "MD81"
+
+initial_questions:
+  - id: AB_Q1
+    question_vi: "Đau bắt đầu từ khi nào? Đột ngột hay từ từ?"
+    question_en: "When did the pain start? Sudden or gradual?"
+    options: [sudden, gradual]
+
+  - id: AB_Q2
+    question_vi: "Đau ở vị trí nào trên bụng? (trên, dưới, phải, trái, quanh rốn...)"
+    question_en: "Where is the pain located? (upper, lower, right, left, around navel...)"
+    type: free_text
+
+  - id: AB_Q3
+    question_vi: "Bạn đánh giá mức độ đau từ 1 đến 10 như thế nào?"
+    question_en: "On a scale of 1-10, how severe is the pain?"
+    type: numeric_scale
+
+  - id: AB_Q4
+    question_vi: "Có triệu chứng nào kèm theo không? (buồn nôn, nôn, tiêu chảy, sốt...)"
+    question_en: "Any associated symptoms? (nausea, vomiting, diarrhea, fever...)"
+    type: free_text
+
+  - id: AB_Q5
+    question_vi: "Lần cuối bạn đi tiêu là khi nào? Có bình thường không?"
+    question_en: "When was your last bowel movement? Was it normal?"
+    type: free_text
+
+  - id: AB_Q6
+    question_vi: "Bạn có đang uống thuốc gì không? Kể cả thuốc giảm đau?"
+    question_en: "Are you taking any medications? Including pain relievers?"
+    type: free_text
+
+  - id: AB_Q7
+    question_vi: "Bạn đã ăn gì gần đây? Có thức ăn nào lạ không?"
+    question_en: "What have you eaten recently? Anything unusual?"
+    type: free_text

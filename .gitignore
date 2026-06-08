@@ -1,0 +1,66 @@
+# PHTA — Personal Health Triaging Agent
+
+# ── AI agent workspace ──────────────────────────────────────────────
+.commandcode/
+CLAUDE.md
+PROJECT-detail.md
+PROJECT-DEVELOPMENT-PHASE-TRACKING.md
+
+# ── Python ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────────
+venv/
+.venv/
+env/
+.env
+*.env.local
+*.env.production
+
+# ── IDE & editors ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Testing & coverage ─────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ── MyPy ────────────────────────────────────────────────────────────
+.mypy_cache/
+
+# ── Ruff ────────────────────────────────────────────────────────────
+.ruff_cache/
+
+# ── PHTA runtime data ──────────────────────────────────────────────
+.phta/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# ── Jupyter ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Docker ──────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── OS files ────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.temp

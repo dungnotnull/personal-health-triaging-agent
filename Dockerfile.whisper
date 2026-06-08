@@ -1,0 +1,18 @@
+FROM python:3.11-slim-bookworm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir openai-whisper
+
+RUN mkdir -p /app/models
+
+ENV WHISPER_MODEL=large-v3
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 9000
+
+CMD ["python", "-c", "import whisper; model = whisper.load_model('large-v3'); print('Whisper model loaded')"]

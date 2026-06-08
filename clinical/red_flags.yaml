@@ -1,0 +1,264 @@
+# ── Red Flag Symptom Definitions ───────────────────────────────────
+# PHTA emergency detection rules. This file is the SAFETY FOUNDATION.
+# Vietnamese + English keywords for each emergency category.
+#
+# Update protocol: Clinical advisor must approve all changes.
+# NEVER remove or relax a red flag pattern.
+# ────────────────────────────────────────────────────────────────────
+
+emergency_patterns:
+
+  # ── Cardiovascular Emergencies ──────────────────────────────────
+  cardiovascular:
+    keywords_vi:
+      - "đau ngực"
+      - "tức ngực"
+      - "đau tim"
+      - "đau thắt ngực"
+      - "đau nặng ngực"
+      - "đau lan xuống cánh tay"
+      - "đau lan xuống hàm"
+      - "vã mồ hôi kèm đau ngực"
+      - "đau thượng vị dữ dội"
+      - "đau lưng như bị xé"
+      - "tiểu đường buồn nôn mệt"
+    keywords_en:
+      - "chest pain"
+      - "chest pressure"
+      - "chest tightness"
+      - "crushing chest"
+      - "heart attack"
+      - "pain radiating to arm"
+      - "pain radiating to jaw"
+      - "chest pain with sweating"
+      - "severe epigastric pain"
+      - "tearing back pain"
+      - "diabetes nausea fatigue"
+    wearable_triggers:
+      hr_above: 150
+      hr_below: 40
+      spo2_below: 92
+    action: EMERGENCY
+
+  # ── Neurological / Stroke ──────────────────────────────────────
+  neurological_stroke:
+    keywords_vi:
+      - "méo miệng"
+      - "liệt mặt"
+      - "yếu tay chân đột ngột"
+      - "yếu nửa người"
+      - "tê nửa người"
+      - "nói không ra lời"
+      - "nói khó"
+      - "nói ngọng đột ngột"
+      - "mất thị lực đột ngột"
+      - "nhìn đôi đột ngột"
+      - "mất thăng bằng đột ngột"
+      - "không thể đứng vững"
+      - "đi không vững"
+      - "chóng mặt dữ dội"
+      - "không đứng được"
+    keywords_en:
+      - "face drooping"
+      - "facial droop"
+      - "arm weakness"
+      - "leg weakness sudden"
+      - "speech difficulty"
+      - "slurred speech"
+      - "cannot speak"
+      - "sudden vision loss"
+      - "facial asymmetry"
+      - "FAST stroke"
+      - "stroke symptoms"
+      - "one sided weakness"
+      - "numbness one side"
+      - "cannot stand"
+      - "unable to walk"
+      - "severe vertigo"
+      - "severe dizziness"
+      - "cannot walk"
+      - "sudden gait"
+    action: EMERGENCY
+
+  # ── Respiratory Emergencies ────────────────────────────────────
+  respiratory:
+    keywords_vi:
+      - "không thở được"
+      - "khó thở nặng"
+      - "nghẹt thở"
+      - "môi tím"
+      - "môi xanh"
+      - "tím tái"
+      - "thở rít"
+      - "suy hô hấp"
+      - "thở nhanh nông"
+      - "li bì không bú"
+    keywords_en:
+      - "cannot breathe"
+      - "severe difficulty breathing"
+      - "severe shortness of breath"
+      - "choking"
+      - "lips turning blue"
+      - "cyanosis"
+      - "stridor"
+      - "respiratory distress"
+      - "cold extremities"
+      - "lethargic not feeding"
+    wearable_triggers:
+      spo2_below: 90
+    action: EMERGENCY
+
+  # ── Severe Neurological ─────────────────────────────────────────
+  neurological_severe:
+    keywords_vi:
+      - "đau đầu dữ dội"
+      - "đau đầu sét đánh"
+      - "bất tỉnh"
+      - "ngất xỉu"
+      - "mất ý thức"
+      - "hôn mê"
+      - "co giật"
+      - "cứng cổ"
+      - "sợ ánh sáng"
+      - "lú lẫn"
+      - "li bì"
+      - "rắn cắn"
+      - "sụp mí"
+      - "nôn vọt"
+      - "khóc thét"
+      - "co thắt họng"
+      - "sợ nước"
+      - "giật mình"
+      - "vàng mắt"
+      - "cả nhà đau đầu"
+      - "cả nhà buồn nôn"
+      - "trễ kinh"
+    keywords_en:
+      - "worst headache"
+      - "thunderclap headache"
+      - "unconscious"
+      - "unresponsive"
+      - "passed out"
+      - "fainted"
+      - "seizure"
+      - "convulsions"
+      - "stiff neck"
+      - "photophobia"
+      - "sudden confusion"
+      - "lethargic"
+      - "snake bite"
+      - "drooping eyelid"
+      - "projectile vomiting"
+      - "currant jelly"
+      - "deep breathing confusion"
+      - "cold sweat"
+      - "jaundice"
+      - "yellow eyes"
+      - "missed period"
+      - "whole family sick"
+      - "chemotherapy rigors"
+      - "postoperative shortness"
+    action: EMERGENCY
+
+  # ── Endocrine Emergency ────────────────────────────────────────
+  endocrine_emergency:
+    keywords_vi:
+      - "sốt 40"
+      - "tim đập 140"
+      - "cường giáp"
+    keywords_en:
+      - "thyroid storm"
+      - "fever 104"
+      - "heart rate 140"
+      - "hyperthyroid"
+    action: EMERGENCY
+
+  # ── Severe Allergic Reaction ────────────────────────────────────
+  anaphylaxis:
+    keywords_vi:
+      - "sưng họng"
+      - "sưng lưỡi"
+      - "khó thở sau khi ăn"
+      - "dị ứng nặng"
+      - "sốc phản vệ"
+      - "phát ban kèm khó thở"
+      - "nổi mề đay kèm khó thở"
+    keywords_en:
+      - "throat swelling"
+      - "tongue swelling"
+      - "anaphylaxis"
+      - "severe allergic reaction"
+      - "difficulty breathing after eating"
+      - "hives with breathing difficulty"
+      - "swollen lips and throat"
+    action: EMERGENCY
+
+  # ── Mental Health Crisis ────────────────────────────────────────
+  mental_health_crisis:
+    keywords_vi:
+      - "muốn tự tử"
+      - "muốn chết"
+      - "tự tử"
+      - "tự làm hại bản thân"
+      - "tự sát"
+      - "không muốn sống nữa"
+      - "kết thúc cuộc đời"
+      - "làm hại chính mình"
+    keywords_en:
+      - "want to kill myself"
+      - "suicidal"
+      - "suicidal ideation"
+      - "self-harm"
+      - "end my life"
+      - "don't want to live"
+      - "hurt myself"
+      - "suicide plan"
+    action: MENTAL_HEALTH_CRISIS
+
+  # ── Severe Hemorrhage ───────────────────────────────────────────
+  hemorrhage:
+    keywords_vi:
+      - "chảy máu không ngừng"
+      - "nôn ra máu"
+      - "ho ra máu"
+      - "đi ngoài ra máu nhiều"
+      - "chảy máu ồ ạt"
+      - "mất máu nhiều"
+      - "chảy máu chân răng"
+    keywords_en:
+      - "vomiting blood"
+      - "coughing up blood"
+      - "uncontrollable bleeding"
+      - "hemorrhage"
+      - "severe bleeding"
+      - "blood in stool large amount"
+    action: EMERGENCY
+
+  # ── Shock / Hypotension ────────────────────────────────────────
+  shock:
+    keywords_vi:
+      - "tay chân lạnh"
+      - "lạnh run"
+      - "vã mồ hôi lạnh"
+      - "mới mổ"
+      - "hóa trị"
+    keywords_en:
+      - "cold extremities"
+      - "rigors"
+      - "shaking chills"
+      - "postoperative"
+      - "chemotherapy"
+    action: EMERGENCY
+
+# ── Wearable Thresholds ────────────────────────────────────────────
+wearable_thresholds:
+  heart_rate:
+    bradycardia_emergency: 40
+    tachycardia_emergency: 150
+    tachycardia_urgent: 120
+  spo2:
+    emergency: 92
+    urgent: 94
+  temperature:
+    hyperthermia_emergency: 40.0
+    hyperthermia_urgent: 39.0

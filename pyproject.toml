@@ -1,0 +1,160 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "phta"
+version = "0.1.0"
+description = "Personal Health Triaging Agent — AI-powered clinical triage nurse"
+readme = "CLAUDE.md"
+license = {text = "Proprietary — Medical Safety Controlled"}
+requires-python = ">=3.11"
+authors = [
+    {name = "PHTA Team"}
+]
+keywords = ["health", "triage", "medical", "clinical", "ai", "wearable"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Healthcare Industry",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps",
+]
+
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "pyyaml>=6.0",
+    "httpx>=0.27.0",
+    "apscheduler>=3.10.0",
+    "cryptography>=42.0.0",
+    "sqlalchemy>=2.0.0",
+    "pysqlcipher3>=2.1.1",
+    "pycryptodome>=3.20.0",
+    "websockets>=12.0",
+    "jinja2>=3.1.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+nlp = [
+    "spacy>=3.7.0",
+    "scispacy>=0.5.0",
+    "transformers>=4.37.0",
+    "protobuf>=4.25.0",
+]
+ml = [
+    "lightgbm>=4.1.0",
+    "scikit-learn>=1.4.0",
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+    "joblib>=1.3.0",
+    "sentence-transformers>=2.5.0",
+]
+voice = [
+    "openai-whisper",
+    "edge-tts",
+    "silero-vad",
+    "sounddevice>=0.4.0",
+]
+all = [
+    "phta[nlp,ml,voice]",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [
+    ".git",
+    ".github",
+    "__pycache__",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "node_modules",
+    ".commandcode",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # do not perform function calls in argument defaults
+    "B904",  # raise from within except
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agent", "clinical", "wearable", "nlp", "monitoring", "nutrition", "knowledge_crawler", "storage", "api", "ui"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+exclude = [
+    ".commandcode/",
+    "build/",
+    "dist/",
+    "tests/",
+]
+check_untyped_defs = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = [
+    "scispacy.*",
+    "transformers.*",
+    "lightgbm.*",
+    "sklearn.*",
+    "numpy.*",
+    "scipy.*",
+    "whisper.*",
+    "edge_tts.*",
+    "silero_vad.*",
+    "sentence_transformers.*",
+    "pysqlcipher3.*",
+    "sounddevice.*",
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[project.scripts]
+phta = "agent.orchestrator:main"
+phta-api = "api.server:main"
+phta-keygen = "storage.encryption:generate_key_command"
+phta-crawler = "knowledge_crawler.crawler:main"
+
+[tool.setuptools.packages.find]
+include = [
+    "agent*",
+    "clinical*",
+    "wearable*",
+    "nlp*",
+    "monitoring*",
+    "nutrition*",
+    "knowledge_crawler*",
+    "storage*",
+    "api*",
+    "ui*",
+]
